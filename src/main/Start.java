@@ -17,6 +17,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Map;
+import java.util.Set;
+
 public class Start extends Application {
     private Stage primaryS;
 
@@ -128,6 +131,11 @@ public class Start extends Application {
             }
 
             lab1.process();
+
+            createLabelsForOutputMatrix(grid);
+
+            createLabelsForOutputGroup(grid);
+
         });
 
     }
@@ -149,6 +157,53 @@ public class Start extends Application {
             grid.add(label, 0, 1 + i);
         }
     }
+
+    private void createLabelsForOutputMatrix(GridPane grid) {
+        Label label;
+        Map<Integer, Integer[]> matrix = ((Lab1) lab1).getMatrix();
+        Integer[] values;
+        StringBuilder sb = new StringBuilder();
+        //String s;
+
+
+        for (int i = 0; i < matrix.size(); ++i) {
+            values = matrix.get(i);
+            for (Integer s: values){
+                sb.append(s);
+                sb.append(" ");
+            }
+
+            label = new Label(String.valueOf("String of matrix " + (i + 1) + ": " + sb.toString()));
+            sb = new StringBuilder();
+            grid.add(label, 3, 1 + i);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void createLabelsForOutputGroup(GridPane grid) {
+        Label label;
+        Map<Integer, Set> group = ((Lab1) lab1).getGroups();
+        Set<Integer> values;
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+
+        for (Integer value: group.keySet()) {
+
+            values = (Set<Integer>) group.get(value);
+            for (Integer s : values) {
+                sb.append(s + 1);
+                sb.append(" ");
+            }
+
+            label = new Label(String.valueOf("Group " + (i + 1) + ": " + sb.toString()));
+            sb = new StringBuilder();
+            grid.add(label,  4, 1 + i);
+            ++i;
+        }
+    }
+
+
+
 
     public String[] getInputStrings() {
         return inputStrings;

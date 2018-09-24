@@ -175,4 +175,14 @@ public class Lab1 implements Processable {
 
     }
 
+    public Map<Integer, Integer[]> getMatrix(){
+        return newMatrixValues;
+    }
+
+    public Map<Integer, Set> getGroups(){
+        return groups;
+    }
+
+
+
 }
