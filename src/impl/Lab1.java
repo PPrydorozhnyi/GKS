@@ -3,19 +3,19 @@ package impl;
 import interf.Processable;
 import main.Start;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Lab1 implements Processable {
 
     private Start main;
     private Map<Integer, String[]> allValues;
     private Map<Integer, Integer[]> newMatrixValues;
+    private Set uniqueVal;
 
     public Lab1(Start main) {
         this.main = main;
         allValues = new HashMap<>();
+        uniqueVal = new HashSet<String>();
     }
 
     @Override
@@ -23,8 +23,8 @@ public class Lab1 implements Processable {
         System.out.println("Processing lab1");
         parseRows();
         printMap(allValues);
-        goTable(8);
-        System.out.println(Arrays.toString(main.getInputStrings()));
+        uniqueValues();
+        goTable(uniqueVal.size());
     }
 
     private void parseRows() {
@@ -64,7 +64,7 @@ public class Lab1 implements Processable {
                 values = allValues.get(i);
                 values2 = allValues.get(j);
 
-                countOfColizion = checkColisions(values, values2);
+                countOfColizion = checkCollisions(values, values2);
 
                 allStringValues = values.length + values2.length;
                 newMatrixValue[j] = amountUniqeValues - (allStringValues - (2 * countOfColizion));
@@ -75,14 +75,21 @@ public class Lab1 implements Processable {
         }
     }
 
-    private int checkColisions(String[] values, String[] values2){
+    private int checkCollisions(String[] values, String[] values2){
 
-        int countOfcolision = 0;
+        int countOfCollision = 0;
         for (String value : values)
             for (String aValues2 : values2)
                 if (value.equals(aValues2))
-                    ++countOfcolision;
-            return countOfcolision;
+                    ++countOfCollision;
+            return countOfCollision;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void uniqueValues() {
+        for (Integer value : allValues.keySet()){
+            uniqueVal.addAll(Arrays.asList(allValues.get(value)));
+        }
     }
 
 }
