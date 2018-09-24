@@ -57,7 +57,7 @@ public class Lab1 implements Processable {
 
         String[] values;
         String[] values2;
-        int countOfColizion;
+        int countOfCollision;
         int allStringValues;
         Integer[] newMatrixValue = new Integer [main.getRankOfTheMatrix()];
         newMatrixValues = new HashMap<>();
@@ -68,10 +68,10 @@ public class Lab1 implements Processable {
                 values = allValues.get(i);
                 values2 = allValues.get(j);
 
-                countOfColizion = checkCollisions(values, values2);
+                countOfCollision = checkCollisions(values, values2);
 
                 allStringValues = values.length + values2.length;
-                newMatrixValue[j] = amountUniqueValues - (allStringValues - (2 * countOfColizion));
+                newMatrixValue[j] = amountUniqueValues - (allStringValues - (2 * countOfCollision));
             }
                 newMatrixValues.put(i, newMatrixValue);
                 newMatrixValue = new Integer [main.getRankOfTheMatrix()];

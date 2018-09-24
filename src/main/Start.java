@@ -65,10 +65,6 @@ public class Start extends Application {
 
         root = new Group();
 
-        // example how to add children to group
-        //root.getChildren().add(background);
-
-
         HBox hBox = new HBox(10, root, grid);
 
         primaryS.setScene(new Scene(hBox, 800, 600));
@@ -100,16 +96,8 @@ public class Start extends Application {
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn, 1, 1);
 
-//        final Text actiontarget = new Text();
-//        grid.add(actiontarget, 0, 2);
-//        GridPane.setColumnSpan(actiontarget, 2);
-//        GridPane.setHalignment(actiontarget, RIGHT);
-//        actiontarget.setId("actiontarget");
-
         btn.setOnAction(e -> {
-//            actiontarget.setFill(Color.FIREBRICK);
             rankOfTheMatrix = Integer.valueOf(textField.getText());
-//            actiontarget.setText("Rank of the matrix set to " + rankOfTheMatrix);
             createLabelsForInputMatrix(grid);
             createFieldsForInputMatrix(grid);
             lab1Button.setDisable(false);
@@ -163,8 +151,6 @@ public class Start extends Application {
         Map<Integer, Integer[]> matrix = ((Lab1) lab1).getMatrix();
         Integer[] values;
         StringBuilder sb = new StringBuilder();
-        //String s;
-
 
         for (int i = 0; i < matrix.size(); ++i) {
             values = matrix.get(i);
