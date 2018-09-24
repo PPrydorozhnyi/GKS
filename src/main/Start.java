@@ -1,5 +1,7 @@
 package main;
 
+import impl.Lab1;
+import interf.Processable;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,13 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import static javafx.geometry.HPos.RIGHT;
 
 public class Start extends Application {
     private Stage primaryS;
@@ -26,6 +25,11 @@ public class Start extends Application {
     private TextField textField;
 
     private int rankOfTheMatrix;
+
+    private TextField[] inputFields;
+    private String[] inputStrings;
+
+    private Processable lab1;
 
     @Override
     public void start(Stage primaryStage) {
@@ -85,24 +89,69 @@ public class Start extends Application {
     private void makeButtons(GridPane grid) {
 
         Button btn = new Button("Accept");
+        Button lab1Button = new Button("Process lab 1");
+        lab1Button.setDisable(true);
+
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 6);
+        grid.add(hbBtn, 1, 1);
 
-        final Text actiontarget = new Text();
-        grid.add(actiontarget, 0, 7);
-        GridPane.setColumnSpan(actiontarget, 2);
-        GridPane.setHalignment(actiontarget, RIGHT);
-        actiontarget.setId("actiontarget");
+//        final Text actiontarget = new Text();
+//        grid.add(actiontarget, 0, 2);
+//        GridPane.setColumnSpan(actiontarget, 2);
+//        GridPane.setHalignment(actiontarget, RIGHT);
+//        actiontarget.setId("actiontarget");
 
         btn.setOnAction(e -> {
-            actiontarget.setFill(Color.FIREBRICK);
-            actiontarget.setText("Processing");
+//            actiontarget.setFill(Color.FIREBRICK);
             rankOfTheMatrix = Integer.valueOf(textField.getText());
-            System.out.println(rankOfTheMatrix);
+//            actiontarget.setText("Rank of the matrix set to " + rankOfTheMatrix);
+            createLabelsForInputMatrix(grid);
+            createFieldsForInputMatrix(grid);
+            lab1Button.setDisable(false);
         });
 
+
+        HBox hbBtn1 = new HBox(10);
+        hbBtn1.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn1.getChildren().add(lab1Button);
+        grid.add(hbBtn1, 2, 1);
+
+        lab1Button.setOnAction(e -> {
+            lab1 = new Lab1(this);
+
+            inputStrings = new String[rankOfTheMatrix];
+
+            for (int i = 0; i < rankOfTheMatrix; ++i) {
+                inputStrings[i] = inputFields[i].getText();
+            }
+
+            lab1.process();
+        });
+
+    }
+
+    private void createFieldsForInputMatrix(GridPane grid) {
+        inputFields = new TextField[rankOfTheMatrix];
+
+        for (int i = 0; i < rankOfTheMatrix; ++i) {
+            inputFields[i] = new TextField();
+            grid.add(inputFields[i], 1, 2 + i);
+        }
+    }
+
+    private void createLabelsForInputMatrix(GridPane grid) {
+        Label label;
+
+        for (int i = 1; i <= rankOfTheMatrix; ++i) {
+            label = new Label(String.valueOf(i));
+            grid.add(label, 0, 1 + i);
+        }
+    }
+
+    public String[] getInputStrings() {
+        return inputStrings;
     }
 
 
