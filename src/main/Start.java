@@ -154,6 +154,10 @@ public class Start extends Application {
         return inputStrings;
     }
 
+    public int getRankOfTheMatrix() {
+        return  rankOfTheMatrix;
+    }
+
 
     public static void main(String[] args) {
 
