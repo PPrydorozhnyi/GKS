@@ -25,6 +25,8 @@ public class Start extends Application {
 
     private TextField textField;
 
+    private int rankOfTheMatrix;
+
     @Override
     public void start(Stage primaryStage) {
 
@@ -68,7 +70,7 @@ public class Start extends Application {
     }
 
     private void makeLabels(GridPane grid) {
-        Label label = new Label("X0:");
+        Label label = new Label("Rank of the matrix:");
         grid.add(label, 0, 1);
 
     }
@@ -97,7 +99,8 @@ public class Start extends Application {
         btn.setOnAction(e -> {
             actiontarget.setFill(Color.FIREBRICK);
             actiontarget.setText("Processing");
-
+            rankOfTheMatrix = Integer.valueOf(textField.getText());
+            System.out.println(rankOfTheMatrix);
         });
 
     }
