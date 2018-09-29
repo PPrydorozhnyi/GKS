@@ -10,10 +10,12 @@ public class Lab2 implements Processable {
     private Map<Integer, Set> groups;
     private Map<Integer, Set<String>> groupSets;
     private List<Integer> order;
+    private Set<Integer> used;
 
     public Lab2(Lab1 lab1) {
         allValues = lab1.getAllValues();
         groups = lab1.getGroups();
+        used = new HashSet<>();
     }
 
     @SuppressWarnings("unchecked")
@@ -34,27 +36,27 @@ public class Lab2 implements Processable {
         order = new ArrayList<>();
 
         order.addAll(groupSets.keySet());
+        order.removeAll(used);
         order.sort((o1, o2) -> Integer.compare(groupSets.get(o2).size(), groupSets.get(o1).size()));
     }
 
     @SuppressWarnings("unchecked")
     private boolean checkGroups(){
         Set<String> values;
-        Set<Integer> grop;
 
-        for(int i = 0; i < order.size(); ++i) {
-            values = groupSets.get(order.get(i));
+        while (order.size() != 0) {
+            values = groupSets.get(order.get(0));
             for(int j = 0; j < allValues.size(); ++j){
-                if(!groups.get(order.get(i)).contains(j)) {
+                if(!groups.get(order.get(0)).contains(j)) {
                     if (values.containsAll(Arrays.asList(allValues.get(j)))) {
                         removeRow(j);
-                        groups.get(order.get(i)).add(j);
-
+                        groups.get(order.get(0)).add(j);
                         return true;
                     }
                 }
             }
-            order.remove(i);
+            order.remove(0);
+            used.add(0);
         }
         return false;
     }
