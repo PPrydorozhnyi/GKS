@@ -10,6 +10,7 @@ public class Lab1 implements Processable {
     private Start main;
     private Map<Integer, String[]> allValues;
     private Map<Integer, Integer[]> newMatrixValues;
+    private Map<Integer, Integer[]> outPutMatrix;
     private Set uniqueVal;
     private Map<Integer, Set> groups;
     private Set<Integer> usedRowNumbers;
@@ -61,6 +62,7 @@ public class Lab1 implements Processable {
         int allStringValues;
         Integer[] newMatrixValue = new Integer [main.getRankOfTheMatrix()];
         newMatrixValues = new HashMap<>();
+        outPutMatrix = new HashMap<>();
 
 
         for (int i = 0; i < main.getRankOfTheMatrix() - 1; ++i) {
@@ -74,9 +76,13 @@ public class Lab1 implements Processable {
                 newMatrixValue[j] = amountUniqueValues - (allStringValues - (2 * countOfCollision));
             }
                 newMatrixValues.put(i, newMatrixValue);
+                outPutMatrix.put(i, newMatrixValue.clone());
                 newMatrixValue = new Integer [main.getRankOfTheMatrix()];
 
+
         }
+
+
     }
 
     private int checkCollisions(String[] values, String[] values2){
@@ -101,7 +107,7 @@ public class Lab1 implements Processable {
 
         for (Integer value : newMatrixValues.keySet()){
             for (Integer val : newMatrixValues.get(value)) {
-                if (val > max && val < maxValue) {
+                if (val > max && val <= maxValue) {
                     max = val;
                 }
             }
@@ -110,10 +116,11 @@ public class Lab1 implements Processable {
         return max;
     }
 
-    private void getRidOfNull() {
+    private void getRidOfNull(Map<Integer, Integer[]> map) {
         Integer[] array;
-        for (Integer value : newMatrixValues.keySet()) {
-            array = newMatrixValues.get(value);
+
+        for (Integer value : map.keySet()) {
+            array = map.get(value);
             for (int i = 0; i < array.length; ++i) {
                 if (array[i] == null) {
                     array[i] = 0;
@@ -122,29 +129,37 @@ public class Lab1 implements Processable {
         }
     }
 
+
     private boolean createGroupSet(int index, int currentMax) {
 
-        boolean added = true;
+        boolean added = false;
 
-        Set<Integer> set = new HashSet<>();
         Integer[] array;
-        List<Integer> rows;
+        List<Integer> rows = new ArrayList<>(3);
 
         for (Integer value : newMatrixValues.keySet()) {
             array = newMatrixValues.get(value);
             for (int i = 0; i < array.length; ++i) {
-                rows = Arrays.asList(value, i);
-                if (array[i] == currentMax &&
-                        !(usedRowNumbers.contains(i) || usedRowNumbers.contains(value)) ) {
-                    set.addAll(rows);
+                if(array[i] == currentMax && rows.isEmpty()){
+                        if(!(usedRowNumbers.contains(i) || usedRowNumbers.contains(value)))
+                            rows = new ArrayList<>(Arrays.asList(value, i));
+                        array[i] = 0;
+                }
+                if(array[i] == currentMax &&
+                        !(usedRowNumbers.contains(i) || usedRowNumbers.contains(value))
+                        && (rows.contains(value) || rows.contains(i) ) ) {
+                            rows.addAll(Arrays.asList(value, i));
+                            array[i] = 0;
                 }
             }
         }
 
+        Set<Integer> set = new HashSet<>(rows);
+
         if (set.size() != 0) {
             groups.put(index, set);
             usedRowNumbers.addAll(set);
-            added = false;
+            added = true;
         }
 
         return added;
@@ -157,13 +172,14 @@ public class Lab1 implements Processable {
         usedRowNumbers = new HashSet<>();
         Set<Integer> lastElementSet = new HashSet<>();
 
-        getRidOfNull();
+        getRidOfNull(newMatrixValues);
+        getRidOfNull(outPutMatrix);
 
         for (i = 0; max != 0;) {
             max = findMaxValue(max);
-            if (createGroupSet(i, max)) {
+            if(createGroupSet(i, max))
                 ++i;
-            }
+
         }
 
         for (int j = 0; j < main.getRankOfTheMatrix(); ++j) {
@@ -176,7 +192,7 @@ public class Lab1 implements Processable {
     }
 
     public Map<Integer, Integer[]> getMatrix(){
-        return newMatrixValues;
+        return outPutMatrix;
     }
 
     public Map<Integer, Set> getGroups(){

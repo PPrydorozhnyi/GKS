@@ -119,7 +119,7 @@ public class Start extends Application {
                 inputStrings[i] = inputFields[i].getText();
             }
 
-            inputStrings = MockLab1.mock;
+            //inputStrings = MockLab1.mock;
 
             lab1.process();
 
