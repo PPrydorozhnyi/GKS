@@ -199,6 +199,7 @@ public class Lab1 implements Processable {
         return groups;
     }
 
-
-
+    public Map<Integer, String[]> getAllValues() {
+        return allValues;
+    }
 }

@@ -1,6 +1,7 @@
 package main;
 
 import impl.Lab1;
+import impl.Lab2;
 import interf.Processable;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -34,6 +35,7 @@ public class Start extends Application {
     private String[] inputStrings;
 
     private Processable lab1;
+    private Lab2 lab2;
 
     @Override
     public void start(Stage primaryStage) {
@@ -89,8 +91,12 @@ public class Start extends Application {
     private void makeButtons(GridPane grid) {
 
         Button btn = new Button("Accept");
+
         Button lab1Button = new Button("Process lab 1");
         lab1Button.setDisable(true);
+
+        Button lab2Button = new Button("Process lab 2");
+        lab2Button.setDisable(true);
 
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
@@ -102,6 +108,7 @@ public class Start extends Application {
             createLabelsForInputMatrix(grid);
             createFieldsForInputMatrix(grid);
             lab1Button.setDisable(false);
+            btn.setDisable(true);
         });
 
 
@@ -119,13 +126,26 @@ public class Start extends Application {
                 inputStrings[i] = inputFields[i].getText();
             }
 
-            //inputStrings = MockLab1.mock;
+            inputStrings = MockLab1.mock;
 
             lab1.process();
 
             createLabelsForOutputMatrix(grid);
 
             createLabelsForOutputGroup(grid);
+
+            lab2Button.setDisable(false);
+        });
+
+        HBox hbBtn2 = new HBox(10);
+        hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn2.getChildren().add(lab2Button);
+        grid.add(hbBtn2, 2, 2);
+
+        lab2Button.setOnAction(e -> {
+            lab2 = new Lab2((Lab1) lab1);
+
+            lab2.process();
 
         });
 
