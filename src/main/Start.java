@@ -201,15 +201,21 @@ public class Start extends Application {
         for (Integer value: group.keySet()) {
 
             values = (Set<Integer>) group.get(value);
-            for (Integer s : values) {
-                sb.append(s + 1);
-                sb.append(" ");
-            }
 
-            label = new Label(String.valueOf("Group " + (i + 1) + ": " + sb.toString()));
-            sb = new StringBuilder();
-            grid.add(label,  columnIndex, 1 + i);
-            ++i;
+            if (!values.isEmpty()) {
+
+                for (Integer s : values) {
+                    sb.append(s + 1);
+                    sb.append(" ");
+                }
+
+                label = new Label(String.valueOf("Group " + (i + 1) + ": " + sb.toString()));
+                sb = new StringBuilder();
+                grid.add(label, columnIndex, 1 + i);
+                ++i;
+            } else {
+                group.remove(value);
+            }
         }
     }
 
