@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import mockData.MockLab1;
 
 import java.util.Map;
 import java.util.Set;
@@ -117,6 +118,8 @@ public class Start extends Application {
             for (int i = 0; i < rankOfTheMatrix; ++i) {
                 inputStrings[i] = inputFields[i].getText();
             }
+
+            inputStrings = MockLab1.mock;
 
             lab1.process();
 
