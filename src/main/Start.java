@@ -132,7 +132,7 @@ public class Start extends Application {
 
             createLabelsForOutputMatrix(grid);
 
-            createLabelsForOutputGroup(grid);
+            createLabelsForOutputGroup(grid, 4);
 
             lab2Button.setDisable(false);
         });
@@ -146,6 +146,8 @@ public class Start extends Application {
             lab2 = new Lab2((Lab1) lab1);
 
             lab2.process();
+
+            createLabelsForOutputGroup(grid, 5);
 
         });
 
@@ -189,7 +191,7 @@ public class Start extends Application {
     }
 
     @SuppressWarnings("unchecked")
-    private void createLabelsForOutputGroup(GridPane grid) {
+    private void createLabelsForOutputGroup(GridPane grid, int columnIndex) {
         Label label;
         Map<Integer, Set> group = ((Lab1) lab1).getGroups();
         Set<Integer> values;
@@ -206,7 +208,7 @@ public class Start extends Application {
 
             label = new Label(String.valueOf("Group " + (i + 1) + ": " + sb.toString()));
             sb = new StringBuilder();
-            grid.add(label,  4, 1 + i);
+            grid.add(label,  columnIndex, 1 + i);
             ++i;
         }
     }

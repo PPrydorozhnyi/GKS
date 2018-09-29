@@ -37,6 +37,7 @@ public class Lab2 implements Processable {
         order.sort((o1, o2) -> Integer.compare(groupSets.get(o2).size(), groupSets.get(o1).size()));
     }
 
+    @SuppressWarnings("unchecked")
     private boolean checkGroups(){
         Set<String> values;
         Set<Integer> grop;
