@@ -17,8 +17,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import mockData.MockLab1;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -126,7 +127,7 @@ public class Start extends Application {
                 inputStrings[i] = inputFields[i].getText();
             }
 
-            inputStrings = MockLab1.mock;
+            //inputStrings = MockLab1.mock;
 
             lab1.process();
 
@@ -196,6 +197,8 @@ public class Start extends Application {
         Map<Integer, Set> group = ((Lab1) lab1).getGroups();
         Set<Integer> values;
         StringBuilder sb = new StringBuilder();
+        List<Integer> keysForRemove = new ArrayList<>();
+
         int i = 0;
 
         for (Integer value: group.keySet()) {
@@ -214,9 +217,14 @@ public class Start extends Application {
                 grid.add(label, columnIndex, 1 + i);
                 ++i;
             } else {
-                group.remove(value);
+                keysForRemove.add(value);
             }
         }
+
+        for (Integer value : keysForRemove) {
+            group.remove(value);
+        }
+
     }
 
 
