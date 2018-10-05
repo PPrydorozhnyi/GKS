@@ -37,8 +37,49 @@ public class Lab2 implements Processable {
         order = new ArrayList<>();
 
         order.addAll(groupSets.keySet());
-        order.sort((o1, o2) -> Integer.compare(groupSets.get(o2).size(), groupSets.get(o1).size()));
+        order.sort((o1, o2) -> {
+            int result = Integer.compare(groupSets.get(o2).size(), groupSets.get(o1).size());
+
+            if (result == 0) {
+                result = sortEquals(o2, o1);
+            }
+
+            return result;
+        });
         order.removeAll(used);
+    }
+
+    @SuppressWarnings("unchecked")
+    private int sortEquals(int o1, int o2) {
+        Set<String> string1 = groupSets.get(order.get(o1));
+        Set<String> string2 = groupSets.get(order.get(o2));
+        Set<Integer> group1 = groups.get(order.get(o1));
+        Set<Integer> group2 = groups.get(order.get(o2));
+        int stringCount1 = 0;
+        int stringCount2 = 0;
+
+        for(int i = 0; i < allValues.size(); ++i) {
+            if (string1.containsAll(Arrays.asList(allValues.get(i))) && !group1.contains(i) && isUnused(i)) {
+                ++stringCount1;
+            }
+            if (string2.containsAll(Arrays.asList(allValues.get(i))) && !group2.contains(i) && isUnused(i)) {
+                ++stringCount2;
+            }
+        }
+        if(stringCount1 <= stringCount2)
+            return -1;
+        else
+            return 1;
+    }
+
+    private boolean isUnused(int i){
+
+        for(Integer value: used){
+                if(groups.get(value).contains(i)){
+                    return false;
+                }
+        }
+        return true;
     }
 
     @SuppressWarnings("unchecked")
