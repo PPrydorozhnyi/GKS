@@ -11,6 +11,7 @@ public class Lab2 implements Processable {
     private Map<Integer, Set<String>> groupSets;
     private List<Integer> order;
     private Set<Integer> used;
+    private int iteratorForUsed = 0;
 
     public Lab2(Lab1 lab1) {
         allValues = lab1.getAllValues();
@@ -36,8 +37,8 @@ public class Lab2 implements Processable {
         order = new ArrayList<>();
 
         order.addAll(groupSets.keySet());
-        order.removeAll(used);
         order.sort((o1, o2) -> Integer.compare(groupSets.get(o2).size(), groupSets.get(o1).size()));
+        order.removeAll(used);
     }
 
     @SuppressWarnings("unchecked")
@@ -56,7 +57,8 @@ public class Lab2 implements Processable {
                 }
             }
             order.remove(0);
-            used.add(0);
+            used.add(iteratorForUsed);
+            ++iteratorForUsed;
         }
         return false;
     }
