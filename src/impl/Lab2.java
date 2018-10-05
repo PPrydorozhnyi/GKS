@@ -59,6 +59,7 @@ public class Lab2 implements Processable {
             order.remove(0);
             used.add(iteratorForUsed);
             ++iteratorForUsed;
+            //here
         }
         return false;
     }
