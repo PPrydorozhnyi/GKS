@@ -11,12 +11,14 @@ public class Lab2 implements Processable {
     private Map<Integer, Set<String>> groupSets;
     private List<Integer> order;
     private Set<Integer> used;
+    private Set<Integer> usedValuesGroups;
     private int iteratorForUsed = 0;
 
     public Lab2(Lab1 lab1) {
         allValues = lab1.getAllValues();
         groups = lab1.getGroups();
         used = new HashSet<>();
+        usedValuesGroups = new HashSet<>();
     }
 
     @SuppressWarnings("unchecked")
@@ -59,10 +61,12 @@ public class Lab2 implements Processable {
         int stringCount2 = 0;
 
         for(int i = 0; i < allValues.size(); ++i) {
-            if (string1.containsAll(Arrays.asList(allValues.get(i))) && !group1.contains(i) && isUnused(i)) {
+            if (string1.containsAll(Arrays.asList(allValues.get(i))) && !group1.contains(i)
+                    && !usedValuesGroups.contains(i)) {
                 ++stringCount1;
             }
-            if (string2.containsAll(Arrays.asList(allValues.get(i))) && !group2.contains(i) && isUnused(i)) {
+            if (string2.containsAll(Arrays.asList(allValues.get(i))) && !group2.contains(i)
+                    && !usedValuesGroups.contains(i)) {
                 ++stringCount2;
             }
         }
@@ -72,16 +76,6 @@ public class Lab2 implements Processable {
             return 1;
     }
 
-    private boolean isUnused(int i){
-
-        for(Integer value: used){
-                if(groups.get(value).contains(i)){
-                    return false;
-                }
-        }
-        return true;
-    }
-
     @SuppressWarnings("unchecked")
     private boolean checkGroups(){
         Set<String> values;
@@ -89,7 +83,7 @@ public class Lab2 implements Processable {
         while (order.size() != 0) {
             values = groupSets.get(order.get(0));
             for(int j = 0; j < allValues.size(); ++j){
-                if(!groups.get(order.get(0)).contains(j)) {
+                if(!groups.get(order.get(0)).contains(j) && !usedValuesGroups.contains(j)) {
                     if (values.containsAll(Arrays.asList(allValues.get(j)))) {
                         removeRow(j);
                         groups.get(order.get(0)).add(j);
@@ -97,6 +91,7 @@ public class Lab2 implements Processable {
                     }
                 }
             }
+            usedValuesGroups.addAll(groups.get(order.get(0)));
             order.remove(0);
             used.add(iteratorForUsed);
             ++iteratorForUsed;
