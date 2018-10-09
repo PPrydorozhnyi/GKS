@@ -107,6 +107,10 @@ public class Lab2 implements Processable {
         }
     }
 
+    public Map<Integer, Set<String>> getGroupSets() {
+        return groupSets;
+    }
+
 
 
     @Override
@@ -118,5 +122,9 @@ public class Lab2 implements Processable {
             b = checkGroups();
         }
         System.out.println("process");
+    }
+
+    public Map<Integer,Set> getGroups() {
+        return groups;
     }
 }

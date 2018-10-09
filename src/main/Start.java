@@ -2,6 +2,7 @@ package main;
 
 import impl.Lab1;
 import impl.Lab2;
+import impl.Lab3;
 import interf.Processable;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -38,6 +39,7 @@ public class Start extends Application {
 
     private Processable lab1;
     private Lab2 lab2;
+    private Lab3 lab3;
 
     @Override
     public void start(Stage primaryStage) {
@@ -100,6 +102,9 @@ public class Start extends Application {
         Button lab2Button = new Button("Process lab 2");
         lab2Button.setDisable(true);
 
+        Button lab3Button = new Button("Process lab 3");
+        lab3Button.setDisable(true);
+
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
@@ -151,6 +156,18 @@ public class Start extends Application {
 
             createLabelsForOutputGroup(grid, 5);
 
+            lab3Button.setDisable(false);
+        });
+
+        HBox hbBtn3 = new HBox(10);
+        hbBtn3.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn3.getChildren().add(lab3Button);
+        grid.add(hbBtn3, 2, 3);
+
+        lab3Button.setOnAction(e -> {
+            lab3 = new Lab3(lab2);
+
+            lab3.process();
         });
 
     }
