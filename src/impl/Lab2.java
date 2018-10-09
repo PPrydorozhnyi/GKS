@@ -107,12 +107,6 @@ public class Lab2 implements Processable {
         }
     }
 
-    public Map<Integer, Set<String>> getGroupSets() {
-        return groupSets;
-    }
-
-
-
     @Override
     public void process() {
         boolean b = true;
@@ -126,5 +120,9 @@ public class Lab2 implements Processable {
 
     public Map<Integer,Set> getGroups() {
         return groups;
+    }
+
+    public Map<Integer, String[]> getAllValues(){
+        return allValues;
     }
 }
