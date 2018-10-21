@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -48,9 +49,10 @@ public class Start extends Application {
 
         primaryStage.setTitle("lab");
         primaryStage.setHeight(850);
-        primaryStage.setWidth(1200);
+        primaryStage.setWidth(1000);
         primaryStage.setResizable(true);
         GridPane grid = new GridPane();
+        ScrollPane sp = new ScrollPane(grid);
         grid.setAlignment(Pos.TOP_RIGHT);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -64,15 +66,15 @@ public class Start extends Application {
         makeTextFields(grid);
         makeButtons(grid);
 
-        drawScene(grid);
+        drawScene(sp);
 
     }
 
-    private void drawScene(GridPane grid) {
+    private void drawScene(ScrollPane sc) {
 
         root = new Group();
 
-        HBox hBox = new HBox(10, root, grid);
+        HBox hBox = new HBox(10, root,sc);
 
         primaryS.setScene(new Scene(hBox, 800, 600));
         primaryS.show();
@@ -168,6 +170,8 @@ public class Start extends Application {
             lab3 = new Lab3(lab2);
 
             lab3.process();
+
+            createLabelsForOutputRelations(grid, 6);
         });
 
     }
@@ -242,6 +246,40 @@ public class Start extends Application {
         for (Integer value : keysForRemove) {
             group.remove(value);
         }
+
+    }
+
+    @SuppressWarnings("unchecked")
+    private void createLabelsForOutputRelations(GridPane grid, int columnIndex) {
+        Label label;
+        List<Map<String, Set<String>>> relations = lab3.getMatrixRelationships();
+        Set<String> values;
+        StringBuilder sb = new StringBuilder();
+
+        int i = 0;
+        int j = 1;
+
+        for (Map<String, Set<String>> group: relations) {
+            for (String value : group.keySet()) {
+
+                values = group.get(value);
+
+                    for (String s : values) {
+                        sb.append(s);
+                        sb.append(" ");
+                    }
+
+                    label = new Label(String.valueOf("Group " + j + " and Element " + value +  " : " + sb.toString()));
+                    sb = new StringBuilder();
+                    grid.add(label, columnIndex, 1 + i);
+                ++i;
+            }
+            label = new Label("-------------------------");
+            grid.add(label, columnIndex, 1 + i);
+            ++i;
+            ++j;
+        }
+
 
     }
 

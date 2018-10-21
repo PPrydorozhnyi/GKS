@@ -1,7 +1,6 @@
 package impl;
 
 import interf.Processable;
-import jdk.nashorn.api.tree.SimpleTreeVisitorES5_1;
 
 import java.util.*;
 
@@ -210,6 +209,10 @@ public class Lab3 implements Processable {
 
         temp.put(newElement, relation);
         return true;
+    }
+
+    public List<Map<String, Set<String>>> getMatrixRelationships() {
+        return matrixRelationships;
     }
 
 
