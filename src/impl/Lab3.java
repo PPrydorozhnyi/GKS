@@ -56,7 +56,6 @@ public class Lab3 implements Processable {
      *
      * @param value first element to check for straight relation
      * @param groupNumber number of group we work with
-     * @return
      */
     private boolean checkReversibleRelation(String value, Integer groupNumber){
         Map<String, Set<String>> temp = matrixRelationships.get(groupNumber);
@@ -215,7 +214,9 @@ public class Lab3 implements Processable {
         return matrixRelationships;
     }
 
-
+    public Map<Integer, String[]> getAllValues() {
+        return allValues;
+    }
 
     @Override
     public void process() {
