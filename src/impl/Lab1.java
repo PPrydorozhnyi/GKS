@@ -202,4 +202,7 @@ public class Lab1 implements Processable {
     public Map<Integer, String[]> getAllValues() {
         return allValues;
     }
+    public Set<String> getUniqueValues(){
+        return uniqueVal;
+    }
 }

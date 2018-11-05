@@ -186,7 +186,7 @@ public class Start extends Application {
         grid.add(hbBtn5, 2, 4);
 
         lab5Button.setOnAction(e -> {
-            lab5 = new Lab5(lab3);
+            lab5 = new Lab5(lab3, (Lab1) lab1);
 
             lab5.process();
 
