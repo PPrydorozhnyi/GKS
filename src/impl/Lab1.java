@@ -21,17 +21,6 @@ public class Lab1 implements Processable {
         uniqueVal = new HashSet<String>();
     }
 
-    @Override
-    public void process() {
-        System.out.println("Processing lab1");
-        parseRows();
-        printMap(allValues);
-        uniqueValues();
-        goTable(uniqueVal.size());
-        createGroups();
-        System.out.println(1);
-    }
-
     private void parseRows() {
 
         String[] strings = main.getInputStrings();
@@ -41,16 +30,6 @@ public class Lab1 implements Processable {
             // split by whitespace
             values = strings[i].split("\\s+");
             allValues.put(i, values);
-        }
-    }
-
-    private <K, V>void printMap(Map<K, V> map) {
-        for (K name: map.keySet()){
-
-            String key = String.valueOf(name);
-            String value = String.valueOf(map.get(name));
-            System.out.println(key + " " + value);
-
         }
     }
 
@@ -78,11 +57,7 @@ public class Lab1 implements Processable {
                 newMatrixValues.put(i, newMatrixValue);
                 outPutMatrix.put(i, newMatrixValue.clone());
                 newMatrixValue = new Integer [main.getRankOfTheMatrix()];
-
-
         }
-
-
     }
 
     private int checkCollisions(String[] values, String[] values2){
@@ -179,7 +154,6 @@ public class Lab1 implements Processable {
             max = findMaxValue(max);
             if(createGroupSet(i, max))
                 ++i;
-
         }
 
         for (int j = 0; j < main.getRankOfTheMatrix(); ++j) {
@@ -199,10 +173,20 @@ public class Lab1 implements Processable {
         return groups;
     }
 
-    public Map<Integer, String[]> getAllValues() {
+    Map<Integer, String[]> getAllValues() {
         return allValues;
     }
-    public Set<String> getUniqueValues(){
+
+    @SuppressWarnings("unchecked")
+    Set<String> getUniqueValues(){
         return uniqueVal;
+    }
+
+    @Override
+    public void process() {
+        parseRows();
+        uniqueValues();
+        goTable(uniqueVal.size());
+        createGroups();
     }
 }

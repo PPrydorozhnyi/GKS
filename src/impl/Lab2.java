@@ -95,7 +95,6 @@ public class Lab2 implements Processable {
             order.remove(0);
             used.add(iteratorForUsed);
             ++iteratorForUsed;
-            //here
         }
         return false;
     }
@@ -115,14 +114,13 @@ public class Lab2 implements Processable {
             sortGroups();
             b = checkGroups();
         }
-        System.out.println("process");
     }
 
-    public Map<Integer,Set> getGroups() {
+    Map<Integer,Set> getGroups() {
         return groups;
     }
 
-    public Map<Integer, String[]> getAllValues(){
+    Map<Integer, String[]> getAllValues(){
         return allValues;
     }
 }

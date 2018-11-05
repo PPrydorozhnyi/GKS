@@ -53,7 +53,6 @@ public class Lab3 implements Processable {
     }
 
     /**
-     *
      * @param value first element to check for straight relation
      * @param groupNumber number of group we work with
      */
@@ -74,7 +73,6 @@ public class Lab3 implements Processable {
 
 
     /**
-     *
      * @param value checked element (key)
      * @param groupNumber number of group
      * @return checked element has to have one output and one input relation
@@ -155,7 +153,7 @@ public class Lab3 implements Processable {
         return false;
     }
 
-    private boolean modulesCreater(){
+    private boolean modulesCreator(){
 
         for(int numberOfGroup = 0; numberOfGroup < matrixRelationships.size(); ++numberOfGroup){
             for(String currentElement: matrixRelationships.get(numberOfGroup).keySet()){
@@ -189,8 +187,8 @@ public class Lab3 implements Processable {
                 relation.addAll(temp.get(currentElement));
             }
         }
-        for(String elemnt: cycle){
-            relation.remove(elemnt);
+        for(String element: cycle){
+            relation.remove(element);
         }
 
         for(String removedElement: cycle){
@@ -214,15 +212,13 @@ public class Lab3 implements Processable {
         return matrixRelationships;
     }
 
-    public Map<Integer, String[]> getAllValues() {
+    Map<Integer, String[]> getAllValues() {
         return allValues;
     }
 
     @Override
     public void process() {
-
         creatingMatrixR();
-        while(modulesCreater());
-        System.out.println("process3");
+        while(modulesCreator());
     }
 }

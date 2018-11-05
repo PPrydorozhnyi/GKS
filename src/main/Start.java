@@ -30,8 +30,6 @@ import java.util.Set;
 public class Start extends Application {
     private Stage primaryS;
 
-    private Group root;
-
     private TextField textField;
 
     private int rankOfTheMatrix;
@@ -49,7 +47,7 @@ public class Start extends Application {
 
         primaryS = primaryStage;
 
-        primaryStage.setTitle("lab");
+        primaryStage.setTitle("GKS");
         primaryStage.setHeight(850);
         primaryStage.setWidth(1000);
         primaryStage.setResizable(true);
@@ -60,9 +58,9 @@ public class Start extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text scenetitle = new Text("Welcome");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(scenetitle, 0, 0, 2, 1);
+        Text sceneTitle = new Text("Welcome");
+        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        grid.add(sceneTitle, 0, 0, 2, 1);
 
         makeLabels(grid);
         makeTextFields(grid);
@@ -74,7 +72,7 @@ public class Start extends Application {
 
     private void drawScene(ScrollPane sc) {
 
-        root = new Group();
+        Group root = new Group();
 
         HBox hBox = new HBox(10, root,sc);
 
@@ -148,6 +146,7 @@ public class Start extends Application {
 
             createLabelsForOutputGroup(grid, 4);
 
+            lab1Button.setDisable(true);
             lab2Button.setDisable(false);
         });
 
@@ -163,6 +162,7 @@ public class Start extends Application {
 
             createLabelsForOutputGroup(grid, 5);
 
+            lab2Button.setDisable(true);
             lab3Button.setDisable(false);
         });
 
@@ -177,6 +177,7 @@ public class Start extends Application {
             lab3.process();
 
             createLabelsForOutputRelations(grid, 6);
+            lab3Button.setDisable(true);
             lab5Button.setDisable(false);
         });
 
@@ -190,8 +191,32 @@ public class Start extends Application {
 
             lab5.process();
 
+            drawModulesRelations(grid, 7);
+
+            lab5Button.setDisable(true);
         });
 
+    }
+
+    private void drawModulesRelations(GridPane grid, int columnIndex) {
+        Label label;
+        Map<String, Set<String>> modulesRelations = lab5.getModulesRelations();
+        String[] orderOfModules = lab5.getOrderOfModules();
+        Set<String> values;
+        StringBuilder sb;
+
+        for (int i = 0; i < orderOfModules.length; ++i) {
+            sb = new StringBuilder();
+            values = modulesRelations.get(orderOfModules[i]);
+
+            for (String s : values) {
+                sb.append(s);
+                sb.append(" ");
+            }
+
+            label = new Label(String.valueOf("Module " + orderOfModules[i] + " related with: " + sb.toString()));
+            grid.add(label, columnIndex, 1 + i);
+        }
     }
 
     private void createFieldsForInputMatrix(GridPane grid) {
@@ -297,8 +322,6 @@ public class Start extends Application {
             ++i;
             ++j;
         }
-
-
     }
 
 

@@ -4,7 +4,6 @@ import interf.Processable;
 
 import java.util.*;
 import java.util.regex.MatchResult;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Lab5 implements Processable {
@@ -34,7 +33,7 @@ public class Lab5 implements Processable {
     }
 
     private void getRidOfDuplicates(){
-        String[] modules = allModules.stream().toArray(String[]::new);
+        String[] modules = allModules.toArray(new String[0]);
         Arrays.sort(modules, Comparator.comparingInt(String::length));
 
         for(int i = 0; i < modules.length - 1; ++i){
@@ -46,12 +45,11 @@ public class Lab5 implements Processable {
         }
         allModules.clear();
         Collections.addAll(allModules, modules);
-        if(allModules.contains(""))
         allModules.remove("");
     }
 
     private void createFinalModules(){
-        String[] modules = allModules.stream().toArray(String[]::new);
+        String[] modules = allModules.toArray(new String[0]);
         Arrays.sort(modules, Comparator.comparingInt(String::length));
 
         for(int i = 0; i < modules.length - 1; ++i){
@@ -61,17 +59,16 @@ public class Lab5 implements Processable {
         }
         allModules.clear();
         Collections.addAll(allModules, modules);
-        if(allModules.contains(""))
-            allModules.remove("");
+        allModules.remove("");
     }
 
     private String checkStrings(String str1, String str2) {
         String[] array1 = parsingStr(str1);
         String[] array2 = parsingStr(str2);
 
-        for (int i = 0; i < array1.length; ++i){
-            for(int j = 0; j < array2.length; ++j){
-                if(array1[i].equals(array2[j])){
+        for (String anArray1 : array1) {
+            for (int j = 0; j < array2.length; ++j) {
+                if (anArray1.equals(array2[j])) {
                     array2[j] = "";
                 }
             }
@@ -81,13 +78,11 @@ public class Lab5 implements Processable {
 
     private String[] parsingStr(String str){
 
-        String[] matches = Pattern.compile("[A-Za-z]{1}[0-9]{1}")
+        return Pattern.compile("[A-Za-z]{1}[0-9]{1}")
                 .matcher(str)
                 .results()
                 .map(MatchResult::group)
                 .toArray(String[]::new);
-
-        return matches;
     }
 
     private void createRelation(){
@@ -139,14 +134,14 @@ public class Lab5 implements Processable {
     }
 
     private void sortModules(){
-        orderOfModules = modulesRelations.keySet().stream().toArray(String[]::new);
+        orderOfModules = modulesRelations.keySet().toArray(new String[0]);
         permutation(orderOfModules);
     }
 
     private void permutation(String[] array){
         String temp;
         String firstElement = array[0];
-        String lastEleemnt = array[array.length - 1];
+        String lastElement = array[array.length - 1];
         List<Integer> counts = new ArrayList<>();
         int index;
 
@@ -155,7 +150,7 @@ public class Lab5 implements Processable {
             temp = array[i];
             array[i] = array[i + 1];
             array[i + 1] = temp;
-            if(array[0].equals(firstElement) && array[array.length - 1].equals(lastEleemnt)){
+            if(array[0].equals(firstElement) && array[array.length - 1].equals(lastElement)){
                 break;
             }
             if(i == array.length - 2){
@@ -178,17 +173,24 @@ public class Lab5 implements Processable {
         Set<String> usedKeys = new HashSet<>();
         int count = 0;
 
-        for(int i = 0; i < orderOfModules.length; ++i){
-            for(String relation: modulesRelations.get(orderOfModules[i])){
-                if(usedKeys.contains(relation)){
+        for (String orderOfModule : orderOfModules) {
+            for (String relation : modulesRelations.get(orderOfModule)) {
+                if (usedKeys.contains(relation)) {
                     ++count;
                 }
             }
-            usedKeys.add(orderOfModules[i]);
+            usedKeys.add(orderOfModule);
         }
         return count;
     }
 
+    public Map<String, Set<String>> getModulesRelations() {
+        return modulesRelations;
+    }
+
+    public String[] getOrderOfModules() {
+        return orderOfModules;
+    }
 
     @Override
     public void process() {
@@ -198,7 +200,5 @@ public class Lab5 implements Processable {
         createRelation();
         moveRelations();
         sortModules();
-
-        System.out.println("lab5");
     }
 }
