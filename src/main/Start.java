@@ -20,12 +20,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import mockData.MockLab1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Start extends Application {
     private Stage primaryS;
@@ -138,7 +134,7 @@ public class Start extends Application {
                 inputStrings[i] = inputFields[i].getText();
             }
 
-            inputStrings = MockLab1.mock;
+            //inputStrings = MockLab1.mock;
 
             lab1.process();
 
@@ -191,6 +187,10 @@ public class Start extends Application {
 
             lab5.process();
 
+            drawModulesRelations(grid, 8);
+
+            Arrays.sort(lab5.getOrderOfModules(), Comparator.comparingInt(String::length));
+
             drawModulesRelations(grid, 7);
 
             lab5Button.setDisable(true);
@@ -214,7 +214,7 @@ public class Start extends Application {
                 sb.append(" ");
             }
 
-            label = new Label(String.valueOf("Module " + orderOfModules[i] + " related with: " + sb.toString()));
+            label = new Label(String.valueOf("Module " + orderOfModules[i] /*+ " related with: " + sb.toString()*/));
             grid.add(label, columnIndex, 1 + i);
         }
     }
