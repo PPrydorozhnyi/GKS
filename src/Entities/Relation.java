@@ -1,30 +1,30 @@
 package Entities;
 
-public class Relation {
-    private int amountOfInputRelations;
-    private int amountOfOutputRelations;
+public class Relation<T> {
+    private T amountOfInputRelations;
+    private T amountOfOutputRelations;
 
     public Relation() {
     }
 
-    public Relation(int amountOfInputRelations, int amountOfOutputRelations) {
+    public Relation(T amountOfInputRelations, T amountOfOutputRelations) {
         this.amountOfInputRelations = amountOfInputRelations;
         this.amountOfOutputRelations = amountOfOutputRelations;
     }
 
-    public int getAmountOfInputRelations() {
+    public T getAmountOfInputRelations() {
         return amountOfInputRelations;
     }
 
-    public void setAmountOfInputRelations(int amountOfInputRelations) {
+    public void setAmountOfInputRelations(T amountOfInputRelations) {
         this.amountOfInputRelations = amountOfInputRelations;
     }
 
-    public int getAmountOfOutputRelations() {
+    public T getAmountOfOutputRelations() {
         return amountOfOutputRelations;
     }
 
-    public void setAmountOfOutputRelations(int amountOfOutputRelations) {
+    public void setAmountOfOutputRelations(T amountOfOutputRelations) {
         this.amountOfOutputRelations = amountOfOutputRelations;
     }
 }
