@@ -4,6 +4,9 @@ public class Relation {
     private int amountOfInputRelations;
     private int amountOfOutputRelations;
 
+    public Relation() {
+    }
+
     public Relation(int amountOfInputRelations, int amountOfOutputRelations) {
         this.amountOfInputRelations = amountOfInputRelations;
         this.amountOfOutputRelations = amountOfOutputRelations;
